@@ -1,3 +1,10 @@
+# Этот скрипт предназначен для работы на небольшом мониторе, ноутбуке
+# Скрипт предназанчен для симуляции человеческого поведения за компьютером.
+# Он печатает рандомный код на пайтоне, двигает и кликает мышкой, прокручивает вверх-вниз 
+# Все действия выполняются в случайном порядке и с разной задержкой.
+# Для его работы необходимо установить библиотеку pyautogui
+# Запускать в открытом файле note.py или любом другом
+
 import pyautogui
 import random
 import time
@@ -74,10 +81,10 @@ line_start_position = (399, 78)  # Пример координат, замени
 line_height = 20  # Высота строки в пикселях, настройте под ваш VS Code
 
 # Границы окна редактора
-editor_top_left = (329, 157)
-editor_bottom_left = (329, 784)
-editor_top_right = (1735, 163)
-editor_bottom_right = (1754, 791)
+editor_top_left = (315, 104)
+editor_bottom_left = (314, 632)
+editor_top_right = (1331, 116)
+editor_bottom_right = (1332, 622)
 
 current_line = 0
 
@@ -110,10 +117,14 @@ while time.time() < end_time:
         lambda: pyautogui.click(),
         lambda: pyautogui.write(random_code, interval=0.1),
         lambda: time.sleep(2),
-        lambda: [pyautogui.press('backspace') for _ in range(len(random_code))],
-        lambda: pyautogui.scroll(-300),
-        lambda: time.sleep(random.uniform(0.5, 1.5)),
-        lambda: pyautogui.scroll(500),
+        lambda: [pyautogui.press('backspace') for _ in range(random.randint(1, len(random_code)))],
+        #lambda: pyautogui.scroll(-300),
+        #lambda: time.sleep(random.uniform(0.5, 1.5)),
+        #lambda: pyautogui.scroll(500),
+        #lambda: time.sleep(random.uniform(0.5, 1.5))
+        lambda: pyautogui.scroll(random.randint(100, 500)),  # Прокрутка вверх с рандомным значением
+        lambda: time.sleep(1),  # Пауза на 1 секунду
+        lambda: pyautogui.scroll(random.randint(100, 500) * -1),  # Прокрутка вниз с рандомным значением
         lambda: time.sleep(random.uniform(0.5, 1.5))
     ]
 
