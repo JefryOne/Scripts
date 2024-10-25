@@ -1,3 +1,5 @@
+# Рабочий скрипт, который имитирует рандомное написание кода на python и движение мышки 
+
 import pyautogui
 import random
 import time
@@ -74,10 +76,10 @@ line_start_position = (399, 78)  # Пример координат, замени
 line_height = 20  # Высота строки в пикселях, настройте под ваш VS Code
 
 # Границы окна редактора
-editor_top_left = (329, 157)
-editor_bottom_left = (329, 784)
-editor_top_right = (1735, 163)
-editor_bottom_right = (1754, 791)
+editor_top_left = (490, 180)
+editor_bottom_left = (488, 298)
+editor_top_right = (735, 186)
+editor_bottom_right = (751, 279)
 
 current_line = 0
 
