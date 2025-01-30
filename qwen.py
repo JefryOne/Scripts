@@ -76,6 +76,15 @@ def perform_random_actions(editor_bounds, line_start_position, line_height):
         except Exception as e:
             logging.error(f"Ошибка при выполнении действия: {e}")
 
+# Флаг для завершения работы скрипта
+should_stop = False
+
+def stop_script(e):
+    global should_stop
+    if keyboard.is_pressed('ctrl') and keyboard.is_pressed('q'):
+        logging.info("Скрипт остановлен пользователем.")
+        should_stop = True
+
 def main():
     # Длительность в секундах для выполнения скрипта (8 часов)
     duration = 8 * 60 * 60
@@ -93,19 +102,18 @@ def main():
         (2906, 1104)  # editor_bottom_right
     )
 
-    # Функция для остановки скрипта по комбинации клавиш
-    def stop_script(e):
-        if keyboard.is_pressed('ctrl') and keyboard.is_pressed('q'):
-            logging.info("Скрипт остановлен пользователем.")
-            raise KeyboardInterrupt
-
     # Регистрация горячей клавиши
     keyboard.on_press(stop_script)
 
     current_line = 0
     while time.time() < end_time:
-        if keyboard.is_pressed('q'):  # Нажмите 'q' для выхода
+        if should_stop:  # Нажмите 'Ctrl + Q' для выхода
             logging.info("Скрипт остановлен пользователем.")
+            break
+
+        # Проверка, находится ли курсор внутри границ редактора
+        if not is_within_editor_bounds(pyautogui.position(), editor_bounds):
+            logging.info("Курсор вышел за пределы редактора. Скрипт завершен.")
             break
 
         perform_random_actions(editor_bounds, line_start_position, line_height)
